@@ -13,7 +13,9 @@ from scipy import integrate
 import math
 import unittest
 
+# =============================================================================
 # Monomial Basis
+# =============================================================================
 def evaluateMonomialBasis1D(degree, variate):
     if degree == 0:
         val = 1
@@ -23,7 +25,9 @@ def evaluateMonomialBasis1D(degree, variate):
         val = variate**degree
     return val
 
-# TaylorExpansion Basis
+# =============================================================================
+# TaylorExpansion 
+# =============================================================================
 def taylorExpansion( fun, a, order ):
     x = list( fun.atoms( sympy.Symbol ) )[0]
     t = 0
@@ -32,8 +36,9 @@ def taylorExpansion( fun, a, order ):
         term = ( df.subs( x, a ) / sympy.factorial( i ) ) * ( x - a )**i
         t += term
     return t
-
+# =============================================================================
 # Lagrange Basis
+# =============================================================================
 def evalLagrangeBasis1D(degree, variate,basis_idx):
     nodes = np.linspace(-1,1,degree+1)
     val = 1
@@ -41,8 +46,9 @@ def evalLagrangeBasis1D(degree, variate,basis_idx):
         if j != basis_idx:    
             val = val * ((variate - nodes[j])/(nodes[basis_idx]-nodes[j]))
     return val
-
+# =============================================================================
 # Legendre Basis
+# =============================================================================
 def evalLegendreBasis1D(degree, variate):
     if degree == 0:
         val = 1
@@ -57,7 +63,9 @@ def evalLegendreBasis1D(degree, variate):
         val = (term1-term2)/(n+1)
     return val
     
+# =============================================================================
 # Bernstein Basis    
+# =============================================================================
 def evaluateBernsteinBasis1D(variate, degree, basis_idx):  
     variate = (1 + variate)/2
     term1 = math.comb(degree,basis_idx)
